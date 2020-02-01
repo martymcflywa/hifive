@@ -5,4 +5,10 @@
 
   <string id="menu_label_1">Item 1</string>
   <string id="menu_label_2">Item 2</string>
+
+  <string id="Squat">Squat</string>
+  <string id="BenchPress">Bench Press</string>
+  <string id="BarbellRow">Barbell Row</string>
+  <string id="OverheadPress">Overhead Press</string>
+  <string id="Deadlift">Deadlift</string>
 </strings>
