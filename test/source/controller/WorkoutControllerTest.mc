@@ -8,10 +8,9 @@ class WorkoutControllerTest {
     var exercises = workoutAExercises();
 
     var workout = new Workout(name, exercises);
-    var exerciseController = new ExerciseController();
     var registry = workoutARegistry();
 
-    var sut = new WorkoutController(workout, exerciseController, registry);
+    var sut = new WorkoutController(workout, registry);
     sut.addSet(5);
     var expected = registry[0];
     return expected.equals(sut.getCurrentExercise());
@@ -23,10 +22,9 @@ class WorkoutControllerTest {
     var exercises = workoutAExercises();
 
     var workout = new Workout(name, exercises);
-    var exerciseController = new ExerciseController();
     var registry = workoutARegistry();
 
-    var sut = new WorkoutController(workout, exerciseController, registry);
+    var sut = new WorkoutController(workout, registry);
 
     for (var i = 0; i < Exercise.MAX_SETS; i++) {
       sut.addSet(5);
@@ -42,10 +40,9 @@ class WorkoutControllerTest {
     var exercises = workoutAExercises();
 
     var workout = new Workout(name, exercises);
-    var exerciseController = new ExerciseController();
     var registry = workoutARegistry();
 
-    var sut = new WorkoutController(workout, exerciseController, registry);
+    var sut = new WorkoutController(workout, registry);
 
     for (var i = 0; i < Exercise.MAX_SETS * 2; i++) {
       sut.addSet(5);
@@ -61,10 +58,9 @@ class WorkoutControllerTest {
     var exercises = workoutAExercises();
 
     var workout = new Workout(name, exercises);
-    var exerciseController = new ExerciseController();
     var registry = workoutARegistry();
 
-    var sut = new WorkoutController(workout, exerciseController, registry);
+    var sut = new WorkoutController(workout, registry);
 
     for (var i = 0; i < Exercise.MAX_SETS * 3; i++) {
       sut.addSet(5);

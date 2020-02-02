@@ -36,7 +36,17 @@ class Exercise {
     return weight;
   }
 
-  function incrementSets() {
+  function addSet(reps) {
+    if (!isValidReps(reps)) {
+      var message = reps + " reps must be less than or equal to max reps "
+          + MAX_REPS;
+      throw new Lang.OperationNotAllowedException(message);
+    }
+    if (isDone()) {
+      var message = "Exercise " + name + " is already complete";
+      throw new Lang.OperationNotAllowedException(message);
+    }
+    onFailure(reps);
     sets++;
   }
 
@@ -44,20 +54,28 @@ class Exercise {
     return sets;
   }
 
-  function incrementFailures() {
-    failures++;
+  function isDone() {
+    return sets >= MAX_SETS;
   }
 
   function getFailures() {
     return failures;
   }
-
-  function failAttempt() {
-    failedAttempt = true;
-  }
   
   function isFailedAttempt() {
     return failedAttempt;
+  }
+
+  hidden function onFailure(reps) {
+    if (isSetComplete(reps) || isFailedAttempt()) {
+      return;
+    }
+    failedAttempt = true;
+    failures++;
+  }
+
+  hidden function isSetComplete(reps) {
+    return Exercise.MAX_REPS.equals(reps);
   }
 
   hidden function isValidWeight(weight) {
@@ -66,5 +84,9 @@ class Exercise {
 
   hidden function isValidFailures(failures) {
     return failures < MAX_FAILURES;
+  }
+
+  hidden function isValidReps(reps) {
+    return reps <= MAX_REPS;
   }
 }

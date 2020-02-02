@@ -2,13 +2,11 @@ using Toybox.Lang;
 
 class WorkoutController {
   hidden var workout;
-  hidden var exerciseController;
   hidden var registry;
   hidden var cursor;
 
-  function initialize(workout, exerciseController, registry) {
+  function initialize(workout, registry) {
     self.workout = workout;
-    self.exerciseController = exerciseController;
     self.registry = registry;
     cursor = 0;
   }
@@ -22,8 +20,7 @@ class WorkoutController {
     }
     var key = registry[cursor];
     var exercise = workout.getExercise(key);
-    exerciseController.setExercise(exercise);
-    exerciseController.addSet(reps);
+    exercise.addSet(reps);
     if (isExerciseDone(key)) {
       cursor++;
     }
@@ -37,7 +34,8 @@ class WorkoutController {
   }
 
   hidden function isExerciseDone(key) {
-    return exerciseController.isDone();
+    var exercise = workout.getExercise(key);
+    return exercise.isDone();
   }
 
   hidden function isWorkoutDone() {
