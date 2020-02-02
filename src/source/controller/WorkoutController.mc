@@ -2,16 +2,15 @@ using Toybox.Lang;
 
 class WorkoutController {
   hidden var workout;
-  hidden var registry;
   hidden var cursor;
 
-  function initialize(workout, registry) {
+  function initialize(workout) {
     self.workout = workout;
-    self.registry = registry;
     cursor = 0;
   }
 
   function addSet(reps) {
+    var registry = workout.getRegistry();
     if (isWorkoutDone()) {
       var message = cursor + 1
           + " number of exercises must be less than or equal to "
@@ -27,6 +26,7 @@ class WorkoutController {
   }
 
   function getCurrentExercise() {
+    var registry = workout.getRegistry();
     var min = min(cursor, registry.size() - 1);
     var key = registry[min];
     var exercise = workout.getExercise(key);
@@ -39,6 +39,7 @@ class WorkoutController {
   }
 
   hidden function isWorkoutDone() {
+    var registry = workout.getRegistry();
     return cursor >= registry.size();
   }
 

@@ -11,6 +11,10 @@ class Workout {
     return name;
   }
 
+  function getRegistry() {
+    return exercises.keys();
+  }
+
   function getExercise(key) {
     return exercises.get(key);
   }

@@ -6,13 +6,10 @@ class WorkoutControllerTest {
   static function addSetNoCompletedExercises(logger) {
     var name = Rez.Strings.WorkoutA;
     var exercises = workoutAExercises();
-
     var workout = new Workout(name, exercises);
-    var registry = workoutARegistry();
-
-    var sut = new WorkoutController(workout, registry);
+    var sut = new WorkoutController(workout);
     sut.addSet(5);
-    var expected = registry[0];
+    var expected = Rez.Strings.Squat;
     return expected.equals(sut.getCurrentExercise());
   }
 
@@ -20,17 +17,12 @@ class WorkoutControllerTest {
   static function addSetOneCompleteExercise(logger) {
     var name = Rez.Strings.WorkoutA;
     var exercises = workoutAExercises();
-
     var workout = new Workout(name, exercises);
-    var registry = workoutARegistry();
-
-    var sut = new WorkoutController(workout, registry);
-
+    var sut = new WorkoutController(workout);
     for (var i = 0; i < Exercise.MAX_SETS; i++) {
       sut.addSet(5);
     }
-
-    var expected = registry[1];
+    var expected = Rez.Strings.BenchPress;
     return expected.equals(sut.getCurrentExercise());
   }
 
@@ -38,17 +30,12 @@ class WorkoutControllerTest {
   static function addSetTwoCompleteExercises(logger) {
     var name = Rez.Strings.WorkoutA;
     var exercises = workoutAExercises();
-
     var workout = new Workout(name, exercises);
-    var registry = workoutARegistry();
-
-    var sut = new WorkoutController(workout, registry);
-
+    var sut = new WorkoutController(workout);
     for (var i = 0; i < Exercise.MAX_SETS * 2; i++) {
       sut.addSet(5);
     }
-
-    var expected = registry[2];
+    var expected = Rez.Strings.BarbellRow;
     return expected.equals(sut.getCurrentExercise());
   }
 
@@ -56,12 +43,8 @@ class WorkoutControllerTest {
   static function addSetAlreadyComplete(logger) {
     var name = Rez.Strings.WorkoutA;
     var exercises = workoutAExercises();
-
     var workout = new Workout(name, exercises);
-    var registry = workoutARegistry();
-
-    var sut = new WorkoutController(workout, registry);
-
+    var sut = new WorkoutController(workout);
     for (var i = 0; i < Exercise.MAX_SETS * 3; i++) {
       sut.addSet(5);
     }
@@ -74,20 +57,11 @@ class WorkoutControllerTest {
     return false;
   }
 
-  hidden static function workoutARegistry() {
-    return [
-      Rez.Strings.Squat,
-      Rez.Strings.BenchPress,
-      Rez.Strings.BarbellRow
-    ];
-  }
-
   hidden static function workoutAExercises() {
-    var registry = workoutARegistry();
     return {
-      registry[0] => new Exercise(registry[0], 95, 0),
-      registry[1] => new Exercise(registry[1], 50, 0),
-      registry[2] => new Exercise(registry[2], 52, 0)
+      Rez.Strings.Squat => new Exercise(Rez.Strings.Squat, 95, 0),
+      Rez.Strings.BenchPress => new Exercise(Rez.Strings.BenchPress, 50, 0),
+      Rez.Strings.BarbellRow => new Exercise(Rez.Strings.BarbellRow, 52, 0)
     };
   }
 }
