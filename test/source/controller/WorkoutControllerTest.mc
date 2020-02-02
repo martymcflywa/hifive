@@ -58,10 +58,19 @@ class WorkoutControllerTest {
   }
 
   hidden static function workoutAExercises() {
+    var unitSystem = Rez.Strings.Kilos;
     return {
-      Rez.Strings.Squat => new Exercise(Rez.Strings.Squat, 95, 0),
-      Rez.Strings.BenchPress => new Exercise(Rez.Strings.BenchPress, 50, 0),
-      Rez.Strings.BarbellRow => new Exercise(Rez.Strings.BarbellRow, 52, 0)
+      Rez.Strings.Squat => new Exercise(Rez.Strings.Squat, unitSystem, 95, 0),
+      Rez.Strings.BenchPress => new Exercise(
+          Rez.Strings.BenchPress,
+          unitSystem,
+          50,
+          0),
+      Rez.Strings.BarbellRow => new Exercise(
+          Rez.Strings.BarbellRow,
+          unitSystem,
+          52,
+          0)
     };
   }
 }

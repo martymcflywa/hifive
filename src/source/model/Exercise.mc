@@ -2,6 +2,7 @@ using Toybox.Lang;
 
 class Exercise {
   hidden var name;
+  hidden var unitSystem;
   hidden var weight;
   hidden var sets;
   hidden var failures;
@@ -11,21 +12,12 @@ class Exercise {
   static const MAX_SETS = 5;
   static const MAX_FAILURES = 3;
 
-  function initialize(name, weight, failures) {
-    if (!isValidWeight(weight)) {
-      var message = "Weight must be greater than zero";
-      throw new Lang.OperationNotAllowedException(message);
-    }
-    if (!isValidFailures(failures)) {
-      var message = failures
-          + " failures must be less than or equal to max failures " 
-          + MAX_FAILURES;
-      throw new Lang.OperationNotAllowedException(message);
-    }
+  function initialize(name, unitSystem, weight, failures) {
     self.name = name;
-    self.weight = weight;
+    setUnitSystem(unitSystem);
+    setWeight(weight);
     sets = 0;
-    self.failures = failures;
+    setFailures(failures);
     failedAttempt = false;
   }
 
@@ -33,11 +25,19 @@ class Exercise {
     return name;
   }
 
+  function getUnitSystem() {
+    return unitSystem;
+  }
+
   function getWeight() {
     return weight;
   }
 
   function setWeight(weight) {
+    if (!isValidWeight(weight)) {
+      var message = "Weight must be greater than zero";
+      throw new Lang.OperationNotAllowedException(message);
+    }
     self.weight = weight;
   }
 
@@ -83,8 +83,31 @@ class Exercise {
     return Exercise.MAX_REPS.equals(reps);
   }
 
+  hidden function setUnitSystem(unitSystem) {
+    if (!isValidUnitSystem(unitSystem)) {
+      var message = "Unsupported unit system " + unitSystem;
+      throw new Lang.InvalidOptionsException(message);
+    }
+    self.unitSystem = unitSystem;
+  }
+
+  hidden function isValidUnitSystem(unitSystem) {
+    return Rez.Strings.Kilos.equals(unitSystem)
+        || Rez.Strings.Pounds.equals(unitSystem);
+  }
+
   hidden function isValidWeight(weight) {
     return weight > 0;
+  }
+
+  hidden function setFailures(failures) {
+    if (!isValidFailures(failures)) {
+      var message = failures
+          + " failures must be less than or equal to max failures " 
+          + MAX_FAILURES;
+      throw new Lang.OperationNotAllowedException(message);
+    }
+    self.failures = failures;
   }
 
   hidden function isValidFailures(failures) {
