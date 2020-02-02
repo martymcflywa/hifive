@@ -35,7 +35,7 @@ class ExerciseTest {
     try {
       var exercise = Rez.Strings.BenchPress;
       var weight = 40;
-      var failures = 3;
+      var failures = 4;
       var sut = new Exercise(exercise, weight, failures);
     } catch (e instanceof Lang.OperationNotAllowedException) {
       logger.error(e.getErrorMessage());

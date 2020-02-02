@@ -17,7 +17,8 @@ class Exercise {
       throw new Lang.OperationNotAllowedException(message);
     }
     if (!isValidFailures(failures)) {
-      var message = failures + " failures must be less than max failures " 
+      var message = failures
+          + " failures must be less than or equal to max failures " 
           + MAX_FAILURES;
       throw new Lang.OperationNotAllowedException(message);
     }
@@ -34,6 +35,10 @@ class Exercise {
 
   function getWeight() {
     return weight;
+  }
+
+  function setWeight(weight) {
+    self.weight = weight;
   }
 
   function addSet(reps) {
@@ -83,7 +88,7 @@ class Exercise {
   }
 
   hidden function isValidFailures(failures) {
-    return failures < MAX_FAILURES;
+    return failures <= MAX_FAILURES;
   }
 
   hidden function isValidReps(reps) {
