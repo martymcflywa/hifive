@@ -2,12 +2,14 @@ using Toybox.Lang;
 
 class WorkoutControllerTest {
 
+  hidden static var name = Rez.Strings.WorkoutA;
+  hidden static var exercises = workoutAExercises();
+  hidden static var registry = workoutARegistry();
+  hidden static var workout = new Workout(name, exercises);
+
   (:test)
   static function addSetNoCompletedExercises(logger) {
-    var name = Rez.Strings.WorkoutA;
-    var exercises = workoutAExercises();
-    var workout = new Workout(name, exercises);
-    var sut = new WorkoutController(workout);
+    var sut = new WorkoutController(workout, registry);
     sut.addSet(5);
     var expected = Rez.Strings.Squat;
     return expected.equals(sut.getCurrentExercise());
@@ -15,10 +17,7 @@ class WorkoutControllerTest {
 
   (:test)
   static function addSetOneCompleteExercise(logger) {
-    var name = Rez.Strings.WorkoutA;
-    var exercises = workoutAExercises();
-    var workout = new Workout(name, exercises);
-    var sut = new WorkoutController(workout);
+    var sut = new WorkoutController(workout, registry);
     for (var i = 0; i < Exercise.MAX_SETS; i++) {
       sut.addSet(5);
     }
@@ -28,10 +27,7 @@ class WorkoutControllerTest {
 
   (:test)
   static function addSetTwoCompleteExercises(logger) {
-    var name = Rez.Strings.WorkoutA;
-    var exercises = workoutAExercises();
-    var workout = new Workout(name, exercises);
-    var sut = new WorkoutController(workout);
+    var sut = new WorkoutController(workout, registry);
     for (var i = 0; i < Exercise.MAX_SETS * 2; i++) {
       sut.addSet(5);
     }
@@ -41,10 +37,7 @@ class WorkoutControllerTest {
 
   (:test)
   static function addSetAlreadyComplete(logger) {
-    var name = Rez.Strings.WorkoutA;
-    var exercises = workoutAExercises();
-    var workout = new Workout(name, exercises);
-    var sut = new WorkoutController(workout);
+    var sut = new WorkoutController(workout, registry);
     for (var i = 0; i < Exercise.MAX_SETS * 3; i++) {
       sut.addSet(5);
     }
@@ -55,6 +48,14 @@ class WorkoutControllerTest {
       return true;
     }
     return false;
+  }
+
+  hidden static function workoutARegistry() {
+    return [
+      Rez.Strings.Squat,
+      Rez.Strings.BenchPress,
+      Rez.Strings.BarbellRow
+    ];
   }
 
   hidden static function workoutAExercises() {
