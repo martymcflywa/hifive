@@ -18,4 +18,8 @@ class Workout {
   function getExercise(key) {
     return exercises.get(key);
   }
+
+  function getExercises() {
+    return exercises;
+  }
 }

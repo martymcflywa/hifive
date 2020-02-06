@@ -4,7 +4,7 @@ class WorkoutControllerTest {
 
   hidden static var name = Rez.Strings.WorkoutA;
   hidden static var exercises = workoutAExercises();
-  hidden static var registry = workoutARegistry();
+  hidden static var registry = Registry.WORKOUTS.get(name);
   hidden static var workout = new Workout(name, exercises);
 
   (:test)
