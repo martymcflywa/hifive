@@ -1,15 +1,16 @@
-class WorkoutMapperTest {
+class WorkoutStoreTest {
 
   hidden static var unitSystem = Rez.Strings.Kilos;
+  hidden static var mapper = new WorkoutMapper();
 
   (:test)
-  static function serializeRoundTrip(logger) {
-    var sut = new WorkoutMapper();
+  static function saveLoadRoundTrip(logger) {
+    var sut = new WorkoutStore(mapper);
     var expected = [
       TestHelper.workoutA(unitSystem),
       TestHelper.workoutB(unitSystem)];
-    var serialized = sut.serialize(expected);
-    var actual = sut.deserialize(serialized);
+    sut.save(expected);
+    var actual = sut.load();
     return TestHelper.equals(expected, actual);
   }
 }
